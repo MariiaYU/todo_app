@@ -1,9 +1,8 @@
 from functions import get_todos, update_file
 import time
 
-todays_day = time.strftime("%B %d, %Y, %I%p")
-print(todays_day)
-
+today_day = time.strftime("%B %d, %Y, %I%p")
+print(today_day)
 
 
 while True:
