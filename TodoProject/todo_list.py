@@ -5,6 +5,7 @@ todays_day = time.strftime("%B %d, %Y, %I%p")
 print(todays_day)
 
 
+
 while True:
     user_action = input("Enter 'add', 'show', 'edit', 'delete' or 'exit': ").strip()
 
