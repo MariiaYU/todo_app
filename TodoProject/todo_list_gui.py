@@ -1,6 +1,8 @@
 import FreeSimpleGUI as sg
 import functions
 
+sg.theme("GreenMono")
+
 label = sg.Text("Enter to-do: ")
 input_box = sg.InputText(key="todo")
 button_add = sg.Button("Add")
@@ -20,7 +22,6 @@ window = sg.Window("To-do List", layout=layout, font=("Helvetica", 20))
 
 while True:
     event, values = window.read()
-    print(values)
     match event:
         case "Add":
             todo = values["todo"].capitalize()
@@ -35,30 +36,36 @@ while True:
             window["todo"].update(value=values["todos"][0])
 
         case "Edit":
-            todo_to_edit = values["todos"][0]
-            todo_to_edit = todo_to_edit
-            new_todo = values["todo"].replace("\n", "")
+            try:
+                todo_to_edit = values["todos"][0]
+                todo_to_edit = todo_to_edit
+                new_todo = values["todo"].replace("\n", "")
 
-            todos = functions.get_todos()
-            number = todos.index(todo_to_edit)
+                todos = functions.get_todos()
+                number = todos.index(todo_to_edit)
 
-            todos[number] = new_todo + "\n"
-            functions.update_file(todos)
+                todos[number] = new_todo + "\n"
+                functions.update_file(todos)
 
-            window["todos"].update(values=todos)
-            window["todo"].update(value="")
+                window["todos"].update(values=todos)
+                window["todo"].update(value="")
+            except IndexError:
+                sg.popup("Select an item!", font=("Helvetica", 20))
 
         case "Complete":
-            todo_to_complete = values["todos"][0]
+            try:
+                todo_to_complete = values["todos"][0]
 
-            todos = functions.get_todos()
-            number = todos.index(todo_to_complete)
+                todos = functions.get_todos()
+                number = todos.index(todo_to_complete)
 
-            todos.remove(todos[number])
-            functions.update_file(todos)
+                todos.remove(todos[number])
+                functions.update_file(todos)
 
-            window["todos"].update(values=todos)
-            window["todo"].update(value="")
+                window["todos"].update(values=todos)
+                window["todo"].update(value="")
+            except IndexError:
+                sg.popup("Select an item!", font=("Helvetica", 20))
 
         case sg.WIN_CLOSED | "Exit":
             break
