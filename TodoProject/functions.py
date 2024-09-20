@@ -1,3 +1,5 @@
+import FreeSimpleGUI
+
 FILEPATH = "todos.txt"
 
 
